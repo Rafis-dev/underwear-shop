@@ -30,14 +30,8 @@ const list = [
 
 export const Category = () => {
   const location = useLocation();
-
-  const gender = location.pathname.includes('/women')
-    ? 'women'
-    : location.pathname.includes('/men')
-    ? 'men'
-    : null;
-
-  const genderCategories = list.filter(item => item.link === gender)[0];
+  const gender = location.pathname.split('/')[1] || 'women';
+  const genderCategories = list.find(item => item.link === gender);
 
   return (
     <ul className={style.category}>
