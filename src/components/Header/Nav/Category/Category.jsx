@@ -3,45 +3,44 @@ import style from './Category.module.scss';
 import cn from 'classnames';
 import { useSelector } from 'react-redux';
 
-const list = [
-  {
-    link: 'women',
-    title: 'Женщины',
-    categories: [
-      { link: 'bra', title: 'Бюстгальтеры' },
-      { link: 'panties', title: 'Трусы' },
-      { link: 'socks', title: 'Носки' },
-      { link: 'robes', title: 'Халаты' },
-      { link: 'thermal', title: 'Термобелье' },
-      { link: 'pajamas', title: 'Пижамы' },
-    ],
-  },
+// const list = [
+//   {
+//     link: 'women',
+//     title: 'Женщины',
+//     categories: [
+//       { link: 'bra', title: 'Бюстгальтеры' },
+//       { link: 'panties', title: 'Трусы' },
+//       { link: 'socks', title: 'Носки' },
+//       { link: 'robes', title: 'Халаты' },
+//       { link: 'thermal', title: 'Термобелье' },
+//       { link: 'pajamas', title: 'Пижамы' },
+//     ],
+//   },
 
-  {
-    link: 'men',
-    title: 'Мужчины',
-    categories: [
-      { link: 'underpants', title: 'Трусы' },
-      { link: 'socks', title: 'Носки' },
-      { link: 'robes', title: 'Халаты' },
-      { link: 'thermal', title: 'Термобелье' },
-    ],
-  },
-];
+//   {
+//     link: 'men',
+//     title: 'Мужчины',
+//     categories: [
+//       { link: 'underpants', title: 'Трусы' },
+//       { link: 'socks', title: 'Носки' },
+//       { link: 'robes', title: 'Халаты' },
+//       { link: 'thermal', title: 'Термобелье' },
+//     ],
+//   },
+// ];
 
 export const Category = () => {
-  const gender = useSelector(state => state.navigation.activeGender);
-  const genderCategories = list.find(item => item.link === gender);
+  const { activeGender, categories } = useSelector(state => state.navigation);
 
   return (
     <ul className={style.category}>
-      {genderCategories.categories.map(item => (
-        <li key={item.link}>
+      {categories[activeGender]?.list?.map(item => (
+        <li key={item.slug}>
           <NavLink
             className={({ isActive }) =>
               cn(style.link, isActive && style.linkActive)
             }
-            to={`/${gender}/${item.link}`}
+            to={`/${activeGender}/${item.slug}`}
           >
             {item.title}
           </NavLink>
