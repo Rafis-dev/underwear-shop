@@ -1,6 +1,7 @@
-import { NavLink, useLocation } from 'react-router';
+import { NavLink } from 'react-router';
 import style from './Category.module.scss';
 import cn from 'classnames';
+import { useSelector } from 'react-redux';
 
 const list = [
   {
@@ -29,8 +30,7 @@ const list = [
 ];
 
 export const Category = () => {
-  const location = useLocation();
-  const gender = location.pathname.split('/')[1] || 'women';
+  const gender = useSelector(state => state.navigation.activeGender);
   const genderCategories = list.find(item => item.link === gender);
 
   return (
