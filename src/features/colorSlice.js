@@ -1,0 +1,41 @@
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { COLORS_URL } from '../const';
+
+export const fetchColor = createAsyncThunk(
+  'color/fetchColor',
+
+  async () => {
+    const response = await fetch(COLORS_URL);
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+);
+
+const initialState = {
+  colors: [],
+  status: 'idle',
+  error: null,
+};
+
+const colorSlice = createSlice({
+  name: 'color',
+  initialState,
+
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      .addCase(fetchColor.pending, state => {
+        state.status = 'loading';
+      })
+      .addCase(fetchColor.fulfilled, (state, action) => {
+        state.colors = action.payload;
+      })
+      .addCase(fetchColor.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.error.message;
+      });
+  },
+});
+
+export default colorSlice.reducer;

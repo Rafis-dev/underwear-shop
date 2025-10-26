@@ -1,53 +1,27 @@
 import { NavLink } from 'react-router';
 import style from './Footer.module.scss';
 import cn from 'classnames';
-
-const list = [
-  {
-    link: 'women',
-    title: 'Женщины',
-    categories: [
-      { link: 'bra', title: 'Бюстгальтеры' },
-      { link: 'panties', title: 'Трусы' },
-      { link: 'socks', title: 'Носки' },
-      { link: 'robes', title: 'Халаты' },
-      { link: 'thermal', title: 'Термобелье' },
-      { link: 'pajamas', title: 'Пижамы' },
-    ],
-  },
-
-  {
-    link: 'men',
-    title: 'Мужчины',
-    categories: [
-      { link: 'underpants', title: 'Трусы' },
-      { link: 'socks', title: 'Носки' },
-      { link: 'robes', title: 'Халаты' },
-      { link: 'thermal', title: 'Термобелье' },
-    ],
-  },
-];
+import { useSelector } from 'react-redux';
 
 export const FooterCategory = () => {
+  const { categories, genderList } = useSelector(state => state.navigation);
+
   return (
     <div className={style.category}>
       <h2 className={cn(style.title, style.categoryTitle)}>Каталог</h2>
 
       <ul className={style.categoryList}>
-        {list.map(item => (
-          <li key={item.link} className={style.categoryItem}>
+        {genderList.map(gender => (
+          <li key={gender} className={style.categoryItem}>
             <h3 className={style.categorySubtitle}>
-              <NavLink to={item.link}>{item.title}</NavLink>
+              <NavLink to={gender}>{categories[gender].title}</NavLink>
             </h3>
 
             <ul className={style.categorySublist}>
-              {item.categories.map(category => (
-                <li key={category.link}>
-                  <NavLink
-                    className={style.link}
-                    to={`${item.link}/${category.link}`}
-                  >
-                    {category.title}
+              {categories[gender].list.map(item => (
+                <li key={item.slug}>
+                  <NavLink className={style.link} to={`${gender}/${item.slug}`}>
+                    {item.title}
                   </NavLink>
                 </li>
               ))}
