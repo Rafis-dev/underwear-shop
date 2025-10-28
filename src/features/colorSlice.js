@@ -7,7 +7,6 @@ export const fetchColor = createAsyncThunk(
   async () => {
     const response = await fetch(COLORS_URL);
     const data = await response.json();
-    console.log(data);
     return data;
   }
 );
@@ -22,13 +21,13 @@ const colorSlice = createSlice({
   name: 'color',
   initialState,
 
-  reducers: {},
   extraReducers: builder => {
     builder
       .addCase(fetchColor.pending, state => {
         state.status = 'loading';
       })
       .addCase(fetchColor.fulfilled, (state, action) => {
+        state.status = 'success';
         state.colors = action.payload;
       })
       .addCase(fetchColor.rejected, (state, action) => {
