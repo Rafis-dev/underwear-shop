@@ -4,7 +4,7 @@ import { Color } from './Color/Color';
 
 export const ColorList = ({ colors }) => {
   const { colorList } = useSelector(state => state.color);
-  console.log(colors);
+
   return (
     <ul className={style.colorList}>
       {colors.map((id, i) => {
