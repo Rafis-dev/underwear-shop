@@ -12,7 +12,7 @@ export const fetchColor = createAsyncThunk(
 );
 
 const initialState = {
-  colors: [],
+  colorList: [],
   status: 'idle',
   error: null,
 };
@@ -28,7 +28,7 @@ const colorSlice = createSlice({
       })
       .addCase(fetchColor.fulfilled, (state, action) => {
         state.status = 'success';
-        state.colors = action.payload;
+        state.colorList = action.payload;
       })
       .addCase(fetchColor.rejected, (state, action) => {
         state.status = 'failed';
