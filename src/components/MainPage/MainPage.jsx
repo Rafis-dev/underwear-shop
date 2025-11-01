@@ -13,6 +13,8 @@ export const MainPage = () => {
   const { activeGender, categories } = useSelector(state => state.navigation);
   const genderData = categories[activeGender];
 
+  const categoryData = genderData?.list.find(item => item.slug === category);
+
   useEffect(() => {
     dispatch(setActiveGender(gender));
   }, [gender, dispatch]);
@@ -31,9 +33,7 @@ export const MainPage = () => {
   return (
     <>
       {!category && <Banner data={genderData?.banner} />}
-      <Goods
-        categoryData={genderData?.list.find(item => item.slug === category)}
-      />
+      <Goods categoryData={categoryData} />
     </>
   );
 };

@@ -2,6 +2,7 @@ import { Container } from '../../Layout/Container/Container';
 import style from './Top.module.scss';
 import cn from 'classnames';
 import logo from '/src/assets/logo.svg';
+import { NavLink } from 'react-router';
 
 export const Top = () => {
   return (
@@ -11,9 +12,9 @@ export const Top = () => {
           8 930 490 26 20
         </a>
 
-        <a className={style.logo} href="/">
+        <NavLink className={style.logo} to="/">
           <img src={logo} alt="логотип inspired" />
-        </a>
+        </NavLink>
         <div className={style.navigation}>
           <ul className={style.navList}>
             <li className={style.navItem}>
