@@ -14,16 +14,12 @@ export const Banner = ({ data }) => {
   useEffect(() => {
     if (isMobile) {
       setBg(`${API_URL}/${data?.bg.mobile}`);
-      console.log('мобила');
     } else if (isTablet) {
       setBg(`${API_URL}/${data?.bg.tablet}`);
-      console.log('планшет');
     } else if (isLaptop) {
       setBg(`${API_URL}/${data?.bg.laptop}`);
-      console.log('ноут');
     } else {
       setBg(`${API_URL}/${data?.bg.desktop}`);
-      console.log('пк');
     }
   }, [isMobile, isTablet, isLaptop, data]);
 

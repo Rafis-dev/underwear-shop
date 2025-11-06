@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchGender, fetchCategory } from '../../features/goodsSlice';
 import { setActiveGender } from '../../features/navigationSlice';
-import { Goods } from '../Goods/Goods';
-import { Banner } from '../Banner/Banner';
+import { Goods } from '../../components/Goods/Goods';
+import { Banner } from '../../components/Banner/Banner';
 
 export const MainPage = () => {
   const { gender = 'women', category } = useParams();
@@ -33,7 +33,7 @@ export const MainPage = () => {
   return (
     <>
       {!category && <Banner data={genderData?.banner} />}
-      <Goods categoryData={categoryData} />
+      <Goods title={categoryData?.title} />
     </>
   );
 };
