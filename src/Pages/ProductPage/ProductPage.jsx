@@ -20,6 +20,7 @@ export const ProductPage = () => {
   const { product } = useSelector(state => state.product);
 
   const { gender, category, colors } = product;
+
   const { colorList } = useSelector(state => state.color);
 
   const [count, setCount] = useState(1);
@@ -54,7 +55,7 @@ export const ProductPage = () => {
   }, [gender, category, id, dispatch]);
 
   useEffect(() => {
-    if (colorList.length && colors.length) {
+    if (colorList?.length && colors?.length) {
       setSelectedColor(colorList.find(color => color.id === colors[0]).title);
     }
   }, [colorList, colors]);
