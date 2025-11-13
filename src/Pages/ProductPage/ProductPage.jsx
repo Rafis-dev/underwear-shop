@@ -131,7 +131,7 @@ export const ProductPage = () => {
           </form>
         </Container>
       </section>
-      <Goods title="Вам также может понравиться" />
+      <Goods title="Вам также может понравиться" recommendation="true" />
     </>
   );
 };

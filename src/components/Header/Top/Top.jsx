@@ -4,10 +4,13 @@ import cn from 'classnames';
 import logo from '/src/assets/logo.svg';
 import { NavLink } from 'react-router';
 import Like from '../../../assets/heart.svg?react';
-import Cart from '../../../assets/HandbagSimple.svg?react';
+import CartSVG from '../../../assets/HandbagSimple.svg?react';
 import Search from '../../../assets/MagnifyingGlass.svg?react';
+import { useSelector } from 'react-redux';
 
 export const Top = () => {
+  const { countItems } = useSelector(state => state.cart);
+
   return (
     <div className={style.top}>
       <Container className={style.container}>
@@ -27,7 +30,8 @@ export const Top = () => {
             </li>
             <li className={style.navItem}>
               <NavLink to="/cart" className={style.link}>
-                <Cart />
+                <CartSVG />
+                <span className={style.linkCount}>{countItems}</span>
               </NavLink>
             </li>
             <li className={style.navItem}>
