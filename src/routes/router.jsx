@@ -5,10 +5,10 @@ import {
 } from 'react-router';
 import { Root } from './Root';
 import { MainPage } from '../Pages/MainPage/MainPage';
-import { ErrorPage } from '../components/ErrorPage/ErrorPage';
 import { ProductPage } from '../Pages/ProductPage/ProductPage';
 import { FavoritePage } from '../Pages/FavoritePage/FavoritePage';
 import { CartPage } from '../Pages/CartPage/CartPage';
+import { ErrorPage } from '../Pages/ErrorPage/ErrorPage';
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
