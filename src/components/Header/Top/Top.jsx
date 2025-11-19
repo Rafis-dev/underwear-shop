@@ -12,6 +12,7 @@ import { toggleSearch } from '../../../features/searchSlice';
 export const Top = () => {
   const dispatch = useDispatch();
   const { countItems } = useSelector(state => state.cart);
+  const favItems = useSelector(state => state.favorites);
 
   const handleOpenSearch = () => {
     dispatch(toggleSearch());
@@ -43,6 +44,7 @@ export const Top = () => {
             <li className={style.navItem}>
               <NavLink to="/favorite" className={cn(style.link, style.like)}>
                 <Like />
+                <span className={style.linkCount}>{favItems.length}</span>
               </NavLink>
             </li>
           </ul>
