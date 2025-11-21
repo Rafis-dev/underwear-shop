@@ -121,7 +121,7 @@ export const ProductPage = () => {
                   <ErrorMessage
                     className={style.error}
                     name="size"
-                    component="p"
+                    component={'p'}
                   />
                   <BtnLike id={id} />
                 </div>
