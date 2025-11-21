@@ -159,6 +159,13 @@
   justify-content: space-between;
 }
 
+.error {
+  position: absolute;
+  bottom: 0;
+  right: 40px;
+  color: tomato;
+}
+
 .count {
   margin-right: 24px;
 
