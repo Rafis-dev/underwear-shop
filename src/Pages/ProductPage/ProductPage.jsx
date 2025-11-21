@@ -52,10 +52,6 @@ export const ProductPage = () => {
     size: yup.string().required('Выберите размер'),
   });
 
-  console.log('product: ', product);
-  console.log('colorList: ', colorList);
-  console.log('colors: ', colors);
-
   return (
     [statusProduct, statusColor].every(status => status === 'success') && (
       <>
