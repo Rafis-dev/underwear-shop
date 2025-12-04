@@ -1,4 +1,4 @@
-export const API_URL = 'http://217.144.103.49:8024';
+export const API_URL = 'http://217.144.103.49.nip.io:8024';
 export const GOODS_URL = `${API_URL}/api/goods`;
 export const CATEGORIES_URL = `${API_URL}/api/categories`;
 export const COLORS_URL = `${API_URL}/api/colors`;
