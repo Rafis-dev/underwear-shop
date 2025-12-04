@@ -8,6 +8,8 @@ import { Preloader } from '../Preloader/Preloader';
 export const Goods = ({ title, recommendation = false }) => {
   const { goodsList, totalCount, status } = useSelector(state => state.goods);
 
+  console.log(goodsList);
+
   return (
     <section className={style.goods}>
       <Container>
