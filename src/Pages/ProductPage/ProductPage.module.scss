@@ -191,6 +191,9 @@
   border: none;
   padding: 14px 41px 15px;
   margin-right: 16px;
+  &:disabled {
+    pointer-events: none;
+  }
 
   @media (max-width: 768px) {
     padding: 12px 41px;
@@ -198,4 +201,8 @@
     line-height: 12px;
     margin-right: 8px;
   }
+}
+
+.inCart {
+  background-color: #00f020;
 }

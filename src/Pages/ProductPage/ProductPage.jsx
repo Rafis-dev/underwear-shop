@@ -20,12 +20,15 @@ export const ProductPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { product, status: statusProduct } = useSelector(
-    state => state.product
+    state => state.product,
   );
 
   const { gender, category, colors } = product;
 
   const { colorList, status: statusColor } = useSelector(state => state.color);
+  const { cartItems } = useSelector(state => state.cart);
+
+  const isInCart = cartItems.find(item => item.id === id);
 
   const [count, setCount] = useState(1);
 
@@ -44,7 +47,7 @@ export const ProductPage = () => {
 
   useEffect(() => {
     dispatch(
-      fetchCategory({ gender, category, count: 4, top: true, exclude: id })
+      fetchCategory({ gender, category, count: 4, top: true, exclude: id }),
     );
   }, [gender, category, id, dispatch]);
 
@@ -64,10 +67,11 @@ export const ProductPage = () => {
             />
             <Formik
               initialValues={{
-                color: colorList.filter(item => colors?.includes(item.id))[0]
-                  ?.title,
-                size: '',
-                count: 1,
+                color:
+                  isInCart?.color ||
+                  colorList.filter(item => colors?.includes(item.id))[0]?.title,
+                size: isInCart?.size || '',
+                count: isInCart?.count || 1,
               }}
               validationSchema={validationSchema}
               onSubmit={values => {
@@ -75,53 +79,73 @@ export const ProductPage = () => {
                   addToCart({
                     id,
                     ...values,
-                  })
+                  }),
                 );
               }}
             >
-              <Form className={style.content}>
-                <h2 className={style.title}>{product.title}</h2>
+              {({ values }) => {
+                const isInCart = cartItems.some(
+                  item =>
+                    item.id === id &&
+                    item.color === values.color &&
+                    item.size === values.size,
+                );
+                return (
+                  <Form className={style.content}>
+                    <h2 className={style.title}>{product.title}</h2>
 
-                <p className={style.price}>руб {product.price}</p>
+                    <p className={style.price}>руб {product.price}</p>
 
-                <div className={style.vendorCode}>
-                  <span className={style.subtitle}>Артикул</span>
-                  <span className={style.id}>{product.id}</span>
-                </div>
+                    <div className={style.vendorCode}>
+                      <span className={style.subtitle}>Артикул</span>
+                      <span className={style.id}>{product.id}</span>
+                    </div>
 
-                <div className={style.color}>
-                  <p className={cn(style.subtitle, style.colorTitle)}>Цвет</p>
-                  <ColorList colors={colors} validate={true} />
-                </div>
+                    <div className={style.color}>
+                      <p className={cn(style.subtitle, style.colorTitle)}>
+                        Цвет
+                      </p>
+                      <ColorList colors={colors} validate={true} />
+                    </div>
 
-                <ProductSize size={product.size} />
+                    <ProductSize size={product.size} />
 
-                <div className={style.description}>
-                  <p className={cn(style.subtitle, style.descriptionTitle)}>
-                    Описание
-                  </p>
-                  <p className={style.descriptionText}>{product.description}</p>
-                </div>
+                    <div className={style.description}>
+                      <p className={cn(style.subtitle, style.descriptionTitle)}>
+                        Описание
+                      </p>
+                      <p className={style.descriptionText}>
+                        {product.description}
+                      </p>
+                    </div>
 
-                <div className={style.control}>
-                  <Count
-                    className={style.count}
-                    count={count}
-                    handleIncrement={handleIncrement}
-                    handleDecrement={handleDecrement}
-                  />
+                    <div className={style.control}>
+                      <Count
+                        className={style.count}
+                        count={count}
+                        handleIncrement={handleIncrement}
+                        handleDecrement={handleDecrement}
+                      />
 
-                  <button className={style.addCart} type="submit">
-                    В корзину
-                  </button>
-                  <ErrorMessage
-                    className={style.error}
-                    name="size"
-                    component={'p'}
-                  />
-                  <BtnLike id={id} />
-                </div>
-              </Form>
+                      <button
+                        disabled={isInCart}
+                        className={cn(style.addCart, {
+                          [style.inCart]: isInCart,
+                        })}
+                        type="submit"
+                      >
+                        {isInCart ? 'В Корзине' : 'В корзину'}
+                      </button>
+                      <ErrorMessage
+                        className={style.error}
+                        name="size"
+                        component={'p'}
+                      />
+                      <BtnLike id={id} />
+                    </div>
+                  </Form>
+                );
+              }}
             </Formik>
           </Container>
         </section>
